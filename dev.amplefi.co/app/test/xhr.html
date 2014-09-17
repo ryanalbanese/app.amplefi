@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Upload</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+$(document).ready(function(){
+$('.submit').click(function(){
+    var formData = new FormData($('form')[0]);
+    $.ajax({
+        url: 'https://v43.amplefi.co/upload',
+        type: 'POST',
+        xhr: function() {  // Custom XMLHttpRequest
+           var myXhr = $.ajaxSettings.xhr();			
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); 
+            }
+            return myXhr;
+        },
+        // Form data
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+		success:function() {
+         console.log('Form upload complete successfully');
+		 $(".progress-bar").hide();
+		  $(".complete-upload").fadeIn('fast');
+      },
+		error: function(){
+			console.log('There was an error');
+		}
+    });
+});
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+});
+</script>
+<body>
+<form enctype="multipart/form-data">
+    <input name="file" type="file" />
+    <input name="client_id" value="test" type="text" />
+    <input class="submit" type="button" value="Upload" />
+</form>
+<progress></progress>
+</body>
+</html>

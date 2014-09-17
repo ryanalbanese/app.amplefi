@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Upload</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+$( '.add-file').on( 'click', function() {
+	$('.file-pop').fadeIn('500');
+	$('.content').css('-webkit-filter', 'blur(1px)').css(' -moz-filter', 'blur(1px)').css('-o-filter', 'blur(1px)').css('-ms-filter', 'blur(1px)').css(' filter', 'blur(1px)');
+});
+});
+</script>
+<style>
+.file-pop{
+	padding: 20px;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	margin-left: -200px;
+	width: 400px;
+	border: 1px solid black;
+	z-index: 2;
+	background: white;
+}
+.content{
+	z-index: 0;
+}
+progress {
+	width: 400px;
+	height: 14px;
+	display: block;
+	border-radius: 20px;
+	border: 2px solid #96d940;
+	/* Important Thing */
+	-webkit-appearance: none;
+}
+
+/* All good till now. Now we'll style the background */
+progress::-webkit-progress-bar {
+	background: #FFF;
+	border-radius: 20px;
+	padding: 2px;
+	box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Now the value part */
+progress::-webkit-progress-value {
+	border-radius: 50px;
+	box-shadow: inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+	background:#96d940;
+	/* Looks great, now animating it */
+	background-size: 25px 14px, 100% 100%, 100% 100%;
+}
+
+/* That's it! Now let's try creating a new stripe pattern and animate it using animation and keyframes properties  */
+
+@-webkit-keyframes move {
+	0% {background-position: 0px 0px, 0 0, 0 0}
+	100% {background-position: -100px 0px, 0 0, 0 0}
+}
+
+/* Prefix-free was creating issues with the animation */
+
+
+
+
+</style>
+<script>
+$(document).ready(function(){
+$('.submit').click(function(){
+    var formData = new FormData($('form')[0]);
+    $.ajax({
+        url: 'https://v43.amplefi.co/upload',
+        type: 'POST',
+        xhr: function() {  // Custom XMLHttpRequest
+           var myXhr = $.ajaxSettings.xhr();			
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); 
+            }
+            return myXhr;
+        },
+        // Form data
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+		success:function() {
+         console.log('Form upload complete successfully');
+		 $(".progress-bar").hide();
+		  $(".complete-upload").fadeIn('fast');
+      },
+		error: function(){
+			console.log('There was an error');
+		}
+    });
+});
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+    }
+}
+});
+</script>
+<body>
+
+<div style="display: none;" class="file-pop">
+<form enctype="multipart/form-data">
+    <input name="upload" type="file" />
+    <input name="client_id" value="test" type="text" />
+    <input class="submit" type="button" value="Upload" />
+</form>
+<div class="progress-bar" style="margin-top: 20px;">
+<progress></progress>
+</div>
+
+<div style="display: none;"class="complete-upload">
+File upload complete.
+</div>
+</div>
+<div class="content">
+
+vent handlers are bound only to the currently selected elements; they must exist on the page at the time your code makes the call to .on(). To ensure the elements are present and can be selected, perform event binding inside a document ready handler for elements that are in the HTML markup on the page. If new HTML is being injected into the page, select the elements and attach event handlers after the new HTML is placed into the page. Or, use delegated events to attach an event handler, as described next.
+
+Delegated events have the advantage that they can process events from descendant elements that are added to the document at a later time. By picking an element that is guaranteed to be present at the time the delegated event handler is attached, you can use delegated events to avoid the need to frequently attach and remove event handlers. This element could be the container element of a view in a Model-View-Controller design, for example, or document if the event handler wants to monitor all bubbling events in the document. The document element is available in the head of the document before loading any other HTML, so it is safe to attach events there without waiting for the document to be ready.
+
+In addition to their ability to handle events on descendant elements not yet created, another advantage of delegated events is their potential for much lower overhead when many elements must be monitor<br><br><br><br>
+<a href="#" class="add-file">Add a file</a>
+</div>
+</body>
+</html>

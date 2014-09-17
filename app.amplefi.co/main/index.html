@@ -1,0 +1,67 @@
+<!--
+/*
+ * Core Template - Main - v28.5.0
+ * Developed for Amplefi, LLC
+ * Developed and maintanined by Ryan Albanese
+ */
+  -->
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META xmlns="https://www.w3.org/2002/01/P3Pv1">
+<POLICY-REFERENCES>
+  <EXPIRY max-age="172800"/>
+  <POLICY-REF about="https://s3.amazonaws.com/www.amplefi.us/policy/public.xml"></POLICY-REF>
+</POLICY-REFERENCES>
+</META>
+<link rel="shortcut icon" href="../static/images/favicon.ico">
+<title>Amplefi...</title>
+<link href="../static/style.css" rel="stylesheet" type="text/css" />
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>
+<script type="text/javascript" src="../static/auth.js"></script>
+<script type="text/javascript" src="../static/jquery.cookie.js"></script>
+<script>
+$(document).ready(function () {
+	var client_id = $.cookie('cid');
+	var server_id = $.cookie('mode');
+	var page_name = 'main'
+	$.getJSON('https://'+server_id+'.amplefi.co/home_page?&callback=?', 
+	{
+		client_id: client_id,
+		page_name: page_name	
+	},
+	function(data){
+		if (data.status === 'ok'){
+			window.location = "../../"+data.home_page+"/"
+		}
+		else{
+			
+		}
+	});
+});
+</script>
+</head>
+<body>
+<div style="display: none;" class="error-pop" >
+  <div class="content-pop">
+    <p class="top-error">Oops! Your token is expired.</p>
+    <p class="error-sub">Please click the button below to login again.</p>
+    <div class="comp-outer"> 
+        <div class="upload-content">
+          <div class="file-icon"><i class="fa fa-exclamation-circle"></i></div>
+      </div>
+    </div>
+    <div class="upload-section">
+    <div class="center-button">
+    <a class="expired-button" href="https://dev.amplefi.co/login/beta/login/">GO TO LOGIN</a>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+<p>
+</p>
+</body>
+</html>

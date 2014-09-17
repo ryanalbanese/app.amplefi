@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../../static/jquery.cookie.js"></script>
+<script>
+$(document).ready(function(){
+	var mapLat;
+	var mapLong;
+	var client_id = "edwards_surg2"
+	var page_name = "map"
+	var master_key = $.cookie('mkid');
+	var server_id = $.cookie('mode');
+	var key_id = (location.hash.replace("#",""))	
+	 $.getJSON("https://v43.amplefi.co/maps_home?callback=?", {
+			client_id: client_id,
+            page_name: page_name,
+            key_id: (location.hash.replace("#","")),
+			master_key: master_key
+			}, 
+			function (data) {
+			 $.each(data.pins, function (i, item) {
+				 mapLat = "5"
+				 mapLong = "7"
+				});
+				alert(mapLong);
+				});
+					});
+</script>
+</head>
+
+<body>
+</body>
+</html>

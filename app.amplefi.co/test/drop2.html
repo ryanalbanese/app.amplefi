@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Upload</title>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+    $(".load-form").dform("https://v43.amplefi.co/form_draw2?client_id=highmark_pharmacy&page_name=forms&key_id=brnd~399d4c11-5a2e-4338-a1bc-bbe3d080543f&master_key=7xgLvqiHqpjXkeCm4lRxamqNzdDCPs&test_user=ralbanese@amplefi.com&callback=?",
+        function(data) {
+            $.each(data, function(i, item) {
+                $.each(this, function(i, item) {
+                    //console.log(item.tooltip.show);
+                    routeme = (this.html.routeto);
+                    $(".loader").hide();
+                    $(".hide-form").css("visibility", "visible");
+                });
+            });
+            $('div').each(function() {
+                if ($(this).attr('upload') == 'yes') {
+                    $('.form-margin').css('margin-top', '120px');
+                    $('.upload-button').show();
+                }
+            });
+            $('div').each(function() {
+                if ($(this).attr('tooltip') == 'yes') {
+                    var tipVal = $(this).attr('tipvalue');
+                    $(this).closest('div').append('<div class="tool-tip show-tip">' + tipVal + '</div>');
+                }
+                $(function() {
+                    $('.ui-dform-div').hover(function(e) {
+                        $(this).find('.tool-tip').fadeIn(300);
+
+                    }, function() {
+                        $(this).find('.tool-tip').fadeOut(300);
+                    });
+                });
+            });
+            $('.date2').each(function() {
+                $(this).datetimepicker({
+                    showOn: "button",
+                    buttonImage: "https://s3.amazonaws.com/www.amplefi.us/images/calendar.png",
+                    dateFormat: 'mm-dd-yy',
+                    buttonImageOnly: true,
+                    addSliderAccess: true,
+                    sliderAccessArgs: {
+                    touchonly: true
+                    },
+            });
+        });
+    });
+});
+</script>
+<body>
+<form  style=" -webkit-background-clip: border-box;
+-webkit-background-origin: padding-box;
+-webkit-background-size: auto;
+-webkit-box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+-webkit-font-smoothing: antialiased;
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgb(255, 255, 255);
+background-image: none;
+background-origin: padding-box;
+background-size: auto;
+border-bottom-color: rgb(206, 213, 217);
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(206, 213, 217);
+border-left-style: solid;
+border-left-width: 1px;
+border-right-color: rgb(206, 213, 217);
+border-right-style: solid;
+border-right-width: 1px;
+border-top-color: rgb(206, 213, 217);
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+border-top-style: solid;
+border-top-width: 1px;
+box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+box-sizing: border-box;
+width: 640px;
+zoom: 1; " class='load-form' id='submit-form'>
+             
+            </form>
+           
+</body>
+</html>

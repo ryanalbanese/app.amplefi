@@ -1,0 +1,287 @@
+<!--
+/*
+ * Core Template - Charts - v28.5.0
+ * Developed for Amplefi, LLC
+ * Developed and maintanined by Ryan Albanese
+ */
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META xmlns="https://www.w3.org/2002/01/P3Pv1">
+<POLICY-REFERENCES>
+  <EXPIRY max-age="172800"/>
+  <POLICY-REF about="https://s3.amazonaws.com/www.amplefi.us/policy/public.xml"></POLICY-REF>
+</POLICY-REFERENCES>
+</META>
+<link rel="shortcut icon" href="../../static/images/favicon.ico">
+<title>Amplefi</title>
+<link href="../../static/style.css" rel="stylesheet" type="text/css" />
+<link href="../../static/jquery-ui-1.10.2.custom.css" rel="stylesheet">
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="../../static/jquery.cookie.js"></script>
+<script src="../../static/jquery-ui-1.10.2.custom.js"></script>
+<script type="text/javascript" src="../../static/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../../static/jquery.dform-1.0.1.min.js"></script>
+<script type="text/javascript" src="../../static/purl.js"></script>
+<script src="../../static/jquery.knob.js"></script>
+<script src="../../static/jquery.dataTables.js"></script>
+<script type="text/javascript"> 	
+$(document).ready(function(){
+	var client_id = $.cookie("cid");
+	var page_name = "forms"
+	var master_key = $.cookie("mkid");
+	var server_id = $.cookie('mode');
+	var key_id = (location.hash.replace("#",""))
+	var url = $(location).attr('href');
+
+        $(".load-form").dform("https://v43.amplefi.co/form_draw2?client_id=highmark_pharmacy&page_name="+page_name+"&key_id=brnd~399d4c11-5a2e-4338-a1bc-bbe3d080543f&master_key=7xgLvqiHqpjXkeCm4lRxamqNzdDCPs&test_user=ralbanese@amplefi.com&callback=?",
+		function(data) {
+			$.each(data, function(i, item) {
+				$.each(this, function(i, item) {
+					//console.log(item.tooltip.show);
+							routeme = (this.html.routeto);
+							$(".loader").hide();
+							$(".hide-form").css("visibility", "visible");
+			});
+			});
+$('div').each(function () {
+	if ($(this).attr('upload')== 'yes'){
+		$('.form-margin').css('margin-top', '120px');
+		$('.upload-button').show();
+	}
+});
+
+$('#upload-file').on('change', function() {
+			var count = Math.floor(Math.random() * 20) + 1	
+        	var grabInput = $(this).val();
+            var formData = new FormData($('.upload-form')[0]);
+            $.ajax({
+                url: 'https://v43.amplefi.co/upload',
+                type: 'POST',
+                dataType: "json",
+                xhr: function() { // Custom XMLHttpRequest
+                    var myXhr = $.ajaxSettings.xhr();
+                    if (myXhr.upload) { // Check if upload property exists
+                        myXhr.upload.addEventListener('progress', progressHandlingFunction, false);
+                    }
+                    return myXhr;
+                },
+                // Form data
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data, textStatus) {	
+                    console.log(data.url);
+                    console.log(textStatus + ' Form upload complete successfully');
+					
+                },
+                error: function() {
+                }
+
+            }, "json");
+            function progressHandlingFunction(e) {
+                if (e.lengthComputable) {
+                    $('progress').attr({
+                        value: e.loaded,
+                        max: e.total
+                    });
+                }
+            }
+
+        });
+		$('div').each(function () {
+	if ($(this).attr('tooltip') == 'yes'){
+		var tipVal = $(this).attr('tipvalue');
+	$(this).closest('div').append('<div class="tool-tip show-tip">'+tipVal+'</div>');		
+	}
+	$(function() {
+		$('.ui-dform-div').hover(function(e) {
+          $(this).find('.tool-tip').fadeIn(300);
+          
+        }, function() { 
+         $(this).find('.tool-tip').fadeOut(300);
+        });
+	});
+});
+			$('.date2').each(function(){
+   					$(this).datetimepicker({
+					showOn: "button",
+      				buttonImage: "https://s3.amazonaws.com/www.amplefi.us/images/calendar.png",
+					dateFormat: 'mm-dd-yy',
+      				buttonImageOnly: true,
+					addSliderAccess: true,
+					sliderAccessArgs: { touchonly: true },
+			});
+		});
+   });
+   
+      });
+	  
+  
+</script>
+</head>
+<body >
+<script src="../../static/highcharts.js"></script> 
+<script src="https://code.highcharts.com/modules/exporting.js"></script> 
+<script src="../../static/highcharts-more.js"></script>
+<div class="show">
+  <div class="header">
+    <div class="left" id="logo"><a href="../../../../main/"><img src="../../static/images/amp-mark.png" width="44" height="44" alt="mark" /></a></div>
+  </div>
+  <div id="side-container">
+    <div class="title-nav-list">
+      <ul>
+        <li>Amplefi</li>
+      </ul>
+    </div>
+    <div class="side-nav-drill-title" id="dyn">
+      
+    </div>
+    <div class="menu-container">
+    <div class="menu-title">
+    	MENUS
+    </div>
+      <div id='side-nav'>
+        <ul class="append-menu">
+        </ul>
+      </div>
+    </div>
+    <div class="download-load"><img src="https://s3.amazonaws.com/www.amplefi.us/images/load-dark.gif" /></div>
+    <div class="download-menu"> </div>
+    
+  </div>
+  <div id="main-container" class="other-container"> 
+   
+    <div class="top-title">
+      <div class="left" id="show-hide"> <a class="show-hide" href="#"><i class="fa fa-bars"></i></a></div>
+       <div class="left" id="show-hide"> <a class="messages-trigger" href="#"><i class="fa fa-comments"></i></a></div>
+       <div class="message-drop">
+      <div class="message-title">
+        <p>Messages</p>
+      </div>
+      <ul class="append-message">
+      </ul>
+    </div>
+    <div class="left" id="user-opt"><a id="log-out" class="logout-trigger" href="#"><i class="fa fa-power-off"></i></a> </div>
+    <div class="user-opt-drop">
+      <ul>
+        <li> <a class="nav-click home" id="active" rel="main" href="./../../../../main/templates/">Overview</a></li>
+      </ul>
+    </div>
+      <div class="left" >
+        <p class="top-title-main"></p>
+      </div>
+    </div>
+    <div class="main-content" style="padding: 0;">
+      <div class="content-load-fail">
+        <div class="fail-image"><img src="../../static/images/chart-fail.png" /></div>
+        <div class="fail-title">Charts failed to load</div>
+        <div class="fail-sub"><a class="try-again" href="#">Try again</a></div>
+      </div>
+      <div class="main-content" id="other-container" style="top: 0px;">
+      <div class="loader"><i class="fa fa-refresh fa-spin" style="font-size: 38px; color: #ced4d9;"></i></div>
+       <!-- LOAD DYNAMIC PAGE ITEMS -->
+       
+       <div class="hide-form">
+       <form  class="upload-form" enctype="multipart/form-data">
+        <div class="upload-button" style="position: absolute; left: 82px;top: 80px;"> 
+        <label class="myLabel"> 
+        <input id="upload-file" type="file"/>   		
+          <i class="fa fa-paperclip"></i> Attach a file
+        </label>
+          </div>
+        <input style="display: none;" name="client_id" value="highmark_mpmos" type="text" />
+        <input style="display: none;"  name="master_key" value="7xgLvqiHqpjXkeCm4lRxamqNzdDCPs" type="text" />
+        <input style="display: none;"  name="test_user" value="ralbanese@amplefi.com" type="text" />
+      </form>
+      <div class="form-margin" style="margin-top: 80px; min-width: 690px; margin-left: 62px; margin-right: auto; margin-bottom: 40px;width: 70%;">
+     
+           
+<form  style=" -webkit-background-clip: border-box;
+-webkit-background-origin: padding-box;
+-webkit-background-size: auto;
+-webkit-box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+-webkit-font-smoothing: antialiased;
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgb(255, 255, 255);
+background-image: none;
+background-origin: padding-box;
+background-size: auto;
+border-bottom-color: rgb(206, 213, 217);
+border-bottom-left-radius: 3px;
+border-bottom-right-radius: 3px;
+border-bottom-style: solid;
+border-bottom-width: 1px;
+border-image-outset: 0px;
+border-image-repeat: stretch;
+border-image-slice: 100%;
+border-image-source: none;
+border-image-width: 1;
+border-left-color: rgb(206, 213, 217);
+border-left-style: solid;
+border-left-width: 1px;
+border-right-color: rgb(206, 213, 217);
+border-right-style: solid;
+border-right-width: 1px;
+border-top-color: rgb(206, 213, 217);
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
+border-top-style: solid;
+border-top-width: 1px;
+box-shadow: rgba(0, 0, 0, 0.0470588) 0px 2px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+box-sizing: border-box;
+width: 640px;
+zoom: 1; " class='load-form' id='submit-form'>
+             
+            </form>
+           
+            <div class="form-error">
+            
+	<p> The fields in red are required</p>
+</div>
+
+</div>
+       <!-- END LOAD DYNAMIC PAGE ITEMS -->
+       
+       
+      </div>
+    </div>
+     
+  </div>
+  <div class="copy-right"> <p>Copyright &#169 2014 Amplefi, LLC. All rights reserved</p></div>
+</div>
+<script >
+/*$(document).ready(function(){
+	$(document).on("click", "#side-nav > ul > li > a", function(e) {
+    var checkElement = $(this).next();
+    $('#side-nav li').removeClass('active');
+    $(this).closest('li').addClass('active');
+	$(".fa-angle-down").removeClass('fa-angle-down');
+	$(this).find('span').addClass('fa-angle-down');	
+        if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+      $(this).closest('li').removeClass('active');
+	  $(this).find('span').removeClass('fa-angle-down');
+      checkElement.slideUp('slow');
+    }
+    if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {		 
+      $('#side-nav ul ul:visible').slideUp('slow');
+      checkElement.slideDown('slow');
+    }    
+    if (checkElement.is('ul')) {
+      return false;
+    } else {
+      return true;	
+    }		
+  });
+	
+});*/
+</script>
+
+</body>
+</html>

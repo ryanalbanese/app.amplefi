@@ -1,0 +1,1046 @@
+<!--
+/*
+ * Core Template - Charts - v28.5.0
+ * Developed for Amplefi, LLC
+ * Developed and maintanined by Ryan Albanese
+ */
+  -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<META xmlns="https://www.w3.org/2002/01/P3Pv1">
+<POLICY-REFERENCES>
+  <EXPIRY max-age="172800"/>
+  <POLICY-REF about="https://s3.amazonaws.com/www.amplefi.us/policy/public.xml"></POLICY-REF>
+</POLICY-REFERENCES>
+</META>
+<link rel="shortcut icon" href="../static/images/favicon.ico">
+<title>Amplefi</title>
+<link href="../static/style.css" rel="stylesheet" type="text/css" />
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/auth.js"></script>
+<script type="text/javascript" src="../static/jquery.cookie.js"></script>
+<script src="../static/jquery-ui-1.10.2.custom.js"></script>
+<script type="text/javascript" src="../static/jquery-ui-timepicker-addon.js"></script>
+<script type="text/javascript" src="../static/jquery.dform-1.0.1.min.js"></script>
+<script type="text/javascript" src="../static/purl.js"></script>
+<script src="../static/jquery.knob.js"></script>
+<script src="../static/jquery.dataTables.js"></script>
+<script src="https://code.jquery.com/jquery-migrate-1.1.1.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	 $(document).on("click", ".try-again", function (e) {
+			 location.reload();
+			 e.preventDefault();
+		 });
+		 $('body').on('click', '.hash', function (e) {
+			 var getHref = $(this).attr('href'); 
+			window.location.hash = (getHref.replace("#",""))
+			e.preventDefault();
+			location.reload();
+    });
+	$('body').on('click', '.download-button', function (e) {
+			$(".download-menu").fadeOut("fast");
+			$(".download-button-cont").empty();
+    });
+	$('.main-content').click(function(){
+	$(".download-menu").hide().empty();
+});
+});
+$(document).ready(function(){
+	$(document).on("mouseover", "td", function(e) {
+		$(this).css("white-space", "normal");
+	});
+	$(document).on("mouseleave", "td", function(e) {
+		$(this).css("white-space", "nowrap");
+	});
+});
+</script>
+<script> 
+$(document).ready(function () {
+	$('.show-more-button').toggle(function() {
+   $("#charts-height").animate({
+           height: "100%"
+        }, 800, function () {         
+			
+        });
+}, function() {
+   $("#charts-height").animate({
+           height: "470px"
+        }, 400, function () {         			
+        });
+});
+$('.show-more-button-main').toggle(function() {
+   $("#charts-height-main").animate({
+           height: "100%"
+        }, 800, function () {         
+			
+        });
+}, function() {
+   $("#charts-height-main").animate({
+           height: "400px"
+        }, 400, function () {         
+			
+        });
+});
+	$(".nav-click").click(function(){
+		$(".nav-click").removeClass("nav-active");
+		$(this).addClass("nav-active");
+	});
+  
+	$('.show-hide').toggle(
+
+function() {
+    $("#main-container").animate({
+           left: "0px"
+        }, 400, function () {              
+			
+        });
+}, function() {
+     $("#main-container").animate({
+		   left: "221px"
+        }, 400, function () {            			
+        });
+		e.preventDefault();
+});
+	$(document).click(function(event) { 
+	
+	// Check if messages icon was clicked
+    
+	if($(event.target).closest('.messages-trigger').length) {
+		var classCheck = $(".messages-trigger").hasClass("active-message");
+	
+	// Check if message dropdown is open
+			
+			if (classCheck == true){			
+				 $(".messages-trigger").removeClass("active-message");
+				 $(".message-drop").fadeOut('fast');
+				 event.preventDefault();
+			}
+	
+	// If message dropdown is closed - open it 
+			
+			else if (classCheck == false) {				
+				$(".messages-trigger").addClass("active-message");
+				$(".message-drop").fadeIn('fast');
+				event.preventDefault();
+			}
+		}
+	
+	// If message icon not clicked - close message dropdown
+		
+		else {
+			 $(".messages-trigger").removeClass("active-message");
+				 $(".message-drop").fadeOut('fast');
+		}
+		
+	});
+	
+});
+</script>
+<script> 
+// MESSAGES, MENU and DOWNLOAD
+
+$(document).ready(function () {
+	if (window.location.href.split("#").length == 2){	
+	var client_id = $.cookie('cid');
+	var page_name = "halo"
+	var master_key = $.cookie('mkid');
+	var server_id = $.cookie('mode');
+	var key_id = (location.hash.replace("#",""))	
+	$('body').on('click', '.download', function (e) {
+		$(".download-show").fadeIn('fast').css("border","1px solid #CCC");
+	$(".download-show").fadeIn('fast');	
+	$.getJSON("https://"+server_id+".amplefi.co/download?callback=?",
+	{
+		 client_id: client_id,
+		page_name: page_name,
+		key_id: key_id,
+		master_key: master_key
+	},
+	function(data){		
+			if (data.status === 'ok'){	
+			$(".download-show").css("border","1px solid #4cb320");
+			$(".download-title").empty().append("Download complete!");
+			$(".download-sub").empty().append("Click the button below to download your file. If the file does not download, right-click the button and choose save.");		
+				$(".download-button").hide().empty().append('<a class="btn btn-default btn-sm" target="_blank" href="'+data.path+'"><i class="fa fa-cloud-download"></i>Download File</a>').fadeIn("fast");
+					
+				
+			}	
+			else{
+				$(".download-show").fadeIn('fast').css("border","1px solid #ea7273");
+				$(".download-title").empty().append("File download failed");
+				$(".download-sub").empty().append("The file failed to download. Please try again.");
+			}
+	});
+	e.preventDefault();
+});
+ $.getJSON("https://"+server_id+".amplefi.co/menu?&callback=?", {
+                    client_id: client_id,
+                    page_name: page_name,
+                    key_id: key_id,
+                    master_key: master_key
+                },
+                function (data) {
+                    if (data.status == 'none') {
+						$(".append-menu").hide();
+					$(".menu-title").empty().append("There's no menu to show");
+				}
+				if (data.status == 'ok') {
+					
+					// Create an iterator for the submenu appending
+					var iterator=0;
+	
+					$.each(data.menu2, function (i, item) {
+						
+						// If we have a submenu to add
+						if (item.type === 'menu_sep') {
+							// Create the menu item and add a spot for the submenu
+							$(".append-menu").append("<li class='has-sub'><a href='#' class='active'> <i class='fa "+item.icon+" fa-lg'></i> "+item.title+" <span id='ddi' class='fa fa-angle-right fa-lg'></span></a><ul class='append-sub' id='new_sub_"+iterator+"'>");
+							
+							// Loop through sub_menu items						
+							$.each(item.sub_menu, function (i, subM) {
+								if (subM.type == 'download'){
+									$("#new_sub_"+iterator).append("<li><a href='"+subM.link+"' class='active download'><i class='fa "+subM.icon+" fa-lg '></i>"+subM.title+"</a>"); 
+								}
+								if (subM.type == 'link'){
+								$("#new_sub_"+iterator).append("<li><a href='"+subM.link+"' class='active'><i class='fa "+subM.icon+" fa-lg'></i>"+subM.title+"</a>"); 
+								}
+							});
+							
+							// Increase iterator
+							iterator++;
+						} else if (item.type === 'page_title') {
+							$(".top-title-main").append("" + item.title + "");
+						} 
+			
+					});
+			
+				} else {
+					$(".append-menu").hide();
+					$(".menu-title").empty().append("There's no menu to show");
+					
+				}
+			
+			});
+		 $.getJSON("https://"+server_id+".amplefi.co/messages?&callback=?", {
+            client_id: client_id,
+            page_name: page_name,
+            key_id: key_id,
+			master_key: master_key
+        },
+        function (data) {
+			if (data.status == 'ok'){
+				document.title = '(1) Amplefi';
+				$(".messages-trigger").css('color',"e76536"); 
+            	$(".append-message").append('<li>' + data.message + '</li>')
+			}
+			else {
+			document.title = 'Amplefi';
+				 $(".append-message").append('<div class="no-message"><i class="fa fa-comments-o"></i><p>No messages</p></div>')
+		}
+        });
+$.getJSON("https://v43.amplefi.co/halos?callback=?",
+                    {
+					  client_id: client_id,
+					  key_id: location.hash.replace("#",""),
+					  page_name: page_name,
+					   
+					  master_key: master_key,
+					  format: "json"
+                    },
+			function(data) {
+				if (data.state == "no"){
+					 
+				}
+				if (data.state == "failure"){
+					 
+				}
+				var iterator=0;
+				
+		$.each(data.master_halos, function(i, item) {	
+			iterator++;
+						if (item.detailTitle === 'failed~empty message'){
+							console.log('status hide it');
+							$(".loader").hide();
+						$(".halo-element-fail").fadeIn("fast");
+				}
+				else if (item.color == 'vantage-glow-lightblue'){
+					console.log('status its blue');
+					$(".loader").hide();
+					$(".append-halos").append('<div class="halo"><div class="knob"  data-width="147" data-min="0" rel='+item.ring+' data-displayPrevious=true value="'+item.percComp+'"></div><div class="move-halo"> <a id="trigger' + iterator +'" href='+item.link+'><img src="'+item.image+'" width="43" height="43"></a></div><div class="text"><a style="color: #1eb4db;" class="halo-paint" id="'+item.id+'" href="'+item.titleLink+'">' + item.detailTitle + '</a></div></div></div>');
+					$(".hover-clear").append('<div class="halo_pop" id="pop-up' + iterator +'"><ul class="append-pop'+iterator+'"><li class="pop-title-halo">'+item.detailTitle+'</li><div class="title-sep"></div></ul></div>');
+					$.each(item.items, function(i, item) {
+				$('.append-pop'+iterator+'').append('<li class="pop-sub">'+item.title+'</li><li>'+item.field+'</li><div class="pop-sep"></div>');	
+			});
+				}
+				else if (data.status =='ok'){
+					console.log('status ok');
+					
+					$(".append-halos").append('<div class="halo"><div class="knob"  data-width="147" data-min="0" rel='+item.ring+' data-displayPrevious=true value="'+item.percComp+'"></div><div class="move-halo"> <a id="trigger' + iterator +'" href='+item.link+'><img src="'+item.image+'" width="43" height="43"></a></div><div class="text"><a class="halo-paint" id="'+item.id+'" href="'+item.titleLink+'">' + item.detailTitle + '</a></div></div></div>');
+					$(".hover-clear").append('<div class="halo_pop" id="pop-up' + iterator +'"><ul class="append-pop'+iterator+'"><li class="pop-title-halo">'+item.detailTitle+'</li><div class="title-sep"></div></ul></div>');
+					$.each(item.items, function(i, item) {
+				$('.append-pop'+iterator+'').append('<li class="pop-sub">'+item.title+'</li><li>'+item.field+'</li><div class="pop-sep"></div>');
+				
+			});
+					$(".loader").hide();						
+									
+				}									
+});	
+
+$(function ($) {
+                $('.knob').each(function () {
+                    var $this = $(this);
+                    var myVal = $this.attr("value");
+                    var myColor = $this.attr("rel");
+                    $this.knob({
+                        'draw': function () {
+                            $(this.i).val(this.cv + '"<div>Ryan</div"')
+                        },
+                        'thickness': 0.05,
+                        'fgColor': myColor,
+						'readOnly' : true,
+                        'bgColor': '#f2f2f5',
+                        'lineCap': 'round'
+                    });
+                    $({
+                        value: 0,
+
+                    }).animate({
+
+                        value: myVal
+                    }, {
+                        duration: 1200,
+                        easing: 'swing',
+                        step: function () {
+                            $this.val(Math.ceil(this.value)).trigger('change');
+
+                        }
+                    })
+                });
+            });
+$(function() {
+        var moveLeft = 40;
+        var moveDown = -120;  
+//START 
+        $('#trigger0').hover(function(e) {
+          $('div#pop-up0').fadeIn(300);
+          
+        }, function() { 
+          $('div#pop-up0').fadeOut(300);
+        });
+        
+        $('#trigger0').mousemove(function(e) {
+          $('div#pop-up0').css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+//END
+        $('#trigger1').hover(function(e) {
+          $('div#pop-up1').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up1').fadeOut(300);
+        });
+        
+        $('#trigger1').mousemove(function(e) {
+          $("div#pop-up1").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger2').hover(function(e) {
+          $('div#pop-up2').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up2').fadeOut(300);
+        });
+        
+        $('#trigger2').mousemove(function(e) {
+          $("div#pop-up2").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger3').hover(function(e) {
+          $('div#pop-up3').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up3').fadeOut(300);
+        });
+        
+        $('#trigger3').mousemove(function(e) {
+          $("div#pop-up3").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger4').hover(function(e) {
+          $('div#pop-up4').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up4').fadeOut(300);
+        });
+        
+        $('#trigger4').mousemove(function(e) {
+          $("div#pop-up4").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger5').hover(function(e) {
+          $('div#pop-up5').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up5').fadeOut(300);
+        });
+        
+        $('#trigger5').mousemove(function(e) {
+          $("div#pop-up5").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger6').hover(function(e) {
+          $('div#pop-up6').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up6').fadeOut(300);
+        });
+        
+        $('#trigger6').mousemove(function(e) {
+          $("div#pop-up6").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger7').hover(function(e) {
+          $('div#pop-up7').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up7').fadeOut(300);
+        });
+        
+        $('#trigger7').mousemove(function(e) {
+          $("div#pop-up7").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger8').hover(function(e) {
+          $('div#pop-up8').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up8').fadeOut(300);
+        });
+        
+        $('#trigger8').mousemove(function(e) {
+          $("div#pop-up8").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger9').hover(function(e) {
+          $('div#pop-up9').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up9').fadeOut(300);
+        });
+        
+        $('#trigger9').mousemove(function(e) {
+          $("div#pop-up9").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger10').hover(function(e) {
+          $('div#pop-up10').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up10').fadeOut(300);
+        });
+        
+        $('#trigger10').mousemove(function(e) {
+          $("div#pop-up10").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger11').hover(function(e) {
+          $('div#pop-up11').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up11').fadeOut(300);
+        });
+        
+        $('#trigger11').mousemove(function(e) {
+          $("div#pop-up11").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+         $('#trigger12').hover(function(e) {
+          $('div#pop-up12').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up12').fadeOut(300);
+        });
+        
+        $('#trigger12').mousemove(function(e) {
+          $("div#pop-up12").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+           $('#trigger').hover(function(e) {
+          $('div#pop-up0').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up0').fadeOut(300);
+        });
+        
+        $('#trigger').mousemove(function(e) {
+          $(this).css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger13').hover(function(e) {
+          $('div#pop-up13').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up13').fadeOut(300);
+        });
+        
+        $('#trigger13').mousemove(function(e) {
+          $("div#pop-up13").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger14').hover(function(e) {
+          $('div#pop-up14').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up14').fadeOut(300);
+        });
+        
+        $('#trigger14').mousemove(function(e) {
+          $("div#pop-up14").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger15').hover(function(e) {
+          $('div#pop-up15').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up15').fadeOut(300);
+        });
+        
+        $('#trigger15').mousemove(function(e) {
+          $("div#pop-up15").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger16').hover(function(e) {
+          $('div#pop-up16').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up16').fadeOut(300);
+        });
+        
+        $('#trigger16').mousemove(function(e) {
+          $("div#pop-up16").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger17').hover(function(e) {
+          $('div#pop-up17').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up17').fadeOut(300);
+        });
+        
+        $('#trigger17').mousemove(function(e) {
+          $("div#pop-up17").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger18').hover(function(e) {
+          $('div#pop-up18').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up18').fadeOut(300);
+        });
+        
+        $('#trigger18').mousemove(function(e) {
+          $("div#pop-up18").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger19').hover(function(e) {
+          $('div#pop-up19').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up19').fadeOut(300);
+        });
+        
+        $('#trigger19').mousemove(function(e) {
+          $("div#pop-up19").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger20').hover(function(e) {
+          $('div#pop-up20').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up20').fadeOut(300);
+        });
+        
+        $('#trigger20').mousemove(function(e) {
+          $("div#pop-up20").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger21').hover(function(e) {
+          $('div#pop-up21').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up21').fadeOut(300);
+        });
+        
+        $('#trigger21').mousemove(function(e) {
+          $("div#pop-up21").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger22').hover(function(e) {
+          $('div#pop-up22').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up22').fadeOut(300);
+        });
+        
+        $('#trigger22').mousemove(function(e) {
+          $("div#pop-up22").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger23').hover(function(e) {
+          $('div#pop-up23').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up23').fadeOut(300);
+        });
+        
+        $('#trigger23').mousemove(function(e) {
+          $("div#pop-up23").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+         $('#trigger24').hover(function(e) {
+          $('div#pop-up24').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up24').fadeOut(300);
+        });
+        
+        $('#trigger24').mousemove(function(e) {
+          $("div#pop-up24").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+    
+	  //START 
+       $('#trigger25').hover(function(e) {
+          $('div#pop-up25').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up25').fadeOut(300);
+        });
+        
+        $('#trigger25').mousemove(function(e) {
+          $("div#pop-up25").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+//END
+//START 
+         $('#trigger26').hover(function(e) {
+          $('div#pop-up26').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up26').fadeOut(300);
+        });
+        
+        $('#trigger26').mousemove(function(e) {
+          $("div#pop-up26").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+              $('#trigger27').hover(function(e) {
+          $('div#pop-up27').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up27').fadeOut(300);
+        });
+        
+        $('#trigger27').mousemove(function(e) {
+          $("div#pop-up27").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger28').hover(function(e) {
+          $('div#pop-up28').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up28').fadeOut(300);
+        });
+        
+        $('#trigger28').mousemove(function(e) {
+          $("div#pop-up28").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+         $('#trigger29').hover(function(e) {
+          $('div#pop-up29').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up29').fadeOut(300);
+        });
+        
+        $('#trigger29').mousemove(function(e) {
+          $("div#pop-up29").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+           $('#trigger30').hover(function(e) {
+          $('div#pop-up30').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up30').fadeOut(300);
+        });
+        
+        $('#trigger30').mousemove(function(e) {
+          $("div#pop-up30").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger31').hover(function(e) {
+          $('div#pop-up131').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up31').fadeOut(300);
+        });
+        
+        $('#trigger31').mousemove(function(e) {
+          $("div#pop-up31").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger32').hover(function(e) {
+          $('div#pop-up32').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up32').fadeOut(300);
+        });
+        
+        $('#trigger32').mousemove(function(e) {
+          $("div#pop-up32").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger33').hover(function(e) {
+          $('div#pop-up33').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up33').fadeOut(300);
+        });
+        
+        $('#trigger33').mousemove(function(e) {
+          $("div#pop-up33").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger34').hover(function(e) {
+          $('div#pop-up34').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up34').fadeOut(300);
+        });
+        
+        $('#trigger34').mousemove(function(e) {
+          $("div#pop-up34").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger35').hover(function(e) {
+          $('div#pop-up35').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up35').fadeOut(300);
+        });
+        
+        $('#trigger35').mousemove(function(e) {
+          $("div#pop-up35").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        
+        $('#trigger36').hover(function(e) {
+          $('div#pop-up36').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up36').fadeOut(300);
+        });
+        
+        $('#trigger36').mousemove(function(e) {
+          $("div#pop-up36").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+        //
+        $('#trigger37').hover(function(e) {
+          $('div#pop-up37').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up37').fadeOut(300);
+        });
+        
+        $('#trigger37').mousemove(function(e) {
+          $("div#pop-up37").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		 //
+        $('#trigger38').hover(function(e) {
+          $('div#pop-up38').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up38').fadeOut(300);
+        });
+        
+        $('#trigger38').mousemove(function(e) {
+          $("div#pop-up38").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		 //
+        $('#trigger39').hover(function(e) {
+          $('div#pop-up39').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up39').fadeOut(300);
+        });
+        
+        $('#trigger39').mousemove(function(e) {
+          $("div#pop-up39").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		 //
+        $('#trigger40').hover(function(e) {
+          $('div#pop-up40').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up40').fadeOut(300);
+        });
+        
+        $('#trigger40').mousemove(function(e) {
+          $("div#pop-up40").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		 //
+        $('#trigger41').hover(function(e) {
+          $('div#pop-up41').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up41').fadeOut(300);
+        });
+        
+        $('#trigger41').mousemove(function(e) {
+          $("div#pop-up41").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger42').hover(function(e) {
+          $('div#pop-up42').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up42').fadeOut(300);
+        });
+        
+        $('#trigger42').mousemove(function(e) {
+          $("div#pop-up42").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger43').hover(function(e) {
+          $('div#pop-up43').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up43').fadeOut(300);
+        });
+        
+        $('#trigger43').mousemove(function(e) {
+          $("div#pop-up43").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger44').hover(function(e) {
+          $('div#pop-up44').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up44').fadeOut(300);
+        });
+        
+        $('#trigger44').mousemove(function(e) {
+          $("div#pop-up44").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		
+		//
+        $('#trigger45').hover(function(e) {
+          $('div#pop-up45').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up45').fadeOut(300);
+        });
+        
+        $('#trigger45').mousemove(function(e) {
+          $("div#pop-up45").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger46').hover(function(e) {
+          $('div#pop-up46').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up46').fadeOut(300);
+        });
+        
+        $('#trigger46').mousemove(function(e) {
+          $("div#pop-up46").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger47').hover(function(e) {
+          $('div#pop-up47').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up47').fadeOut(300);
+        });
+        
+        $('#trigger47').mousemove(function(e) {
+          $("div#pop-up47").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger48').hover(function(e) {
+          $('div#pop-up48').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up48').fadeOut(300);
+        });
+        
+        $('#trigger48').mousemove(function(e) {
+          $("div#pop-up48").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger49').hover(function(e) {
+          $('div#pop-up49').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up49').fadeOut(300);
+        });
+        
+        $('#trigger49').mousemove(function(e) {
+          $("div#pop-up49").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+		//
+		//
+        $('#trigger50').hover(function(e) {
+          $('div#pop-up50').fadeIn(300);
+          
+        }, function() {
+          $('div#pop-up50').fadeOut(300);
+        });
+        
+        $('#trigger50').mousemove(function(e) {
+          $("div#pop-up50").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+        });
+     	});
+});
+	}
+	if (window.location.href.split("#").length == 1){
+		window.location.hash = "#main"
+		console.log("Hash Set");
+		}
+window.onhashchange = function(){
+	location.reload();
+									  
+}   
+});					
+</script>
+</head>
+<body>
+<script src="../static/highcharts.js"></script> 
+<script src="https://code.highcharts.com/modules/exporting.js"></script> 
+<script src="../static/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.src.js"></script>
+<div style="display: none;" class="error-pop" >
+  <div class="content-pop">
+    <p class="top-error">Oops! Your token is expired.</p>
+    <p class="error-sub">Please click the button below to login again.</p>
+    <div class="comp-outer"> 
+        <div class="upload-content">
+          <div class="file-icon"><i class="fa fa-exclamation-circle"></i></div>
+      </div>
+    </div>
+    <div class="upload-section">
+    <div class="center-button">
+    <a class="expired-button" href="https://dev.amplefi.co/login/beta/login/">GO TO LOGIN</a>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="show">
+  <div class="header">
+    <div class="left" id="logo"><a href="../../main/"><img src="../static/images/amp-mark.png" width="44" height="44" alt="mark" /></a></div>
+  </div>
+  <div id="side-container">
+    <div class="title-nav-list">
+      <ul>
+        <li>Amplefi</li>
+      </ul>
+    </div>
+    <div class="side-nav-drill-title" id="dyn">
+      
+    </div>
+    <div class="menu-container">
+    <div class="menu-title">
+    	MENUS
+    </div>
+      <div id='side-nav'>
+        <ul class="append-menu">
+        </ul>
+      </div>
+    </div>
+    
+    
+  </div>
+  <div id="main-container" class="other-container"> 
+   
+    <div class="top-title">
+      <div class="left" id="show-hide"> <a class="show-hide" href="#"><i class="fa fa-bars"></i></a></div>
+       <div class="left" id="show-hide"> <a class="messages-trigger" href="#"><i class="fa fa-comments"></i></a></div>
+       <div class="message-drop">
+      <div class="message-title">
+        <p>Messages</p>
+      </div>
+      <ul class="append-message">
+      </ul>
+    </div>
+    <div class="left" id="user-opt"><a id="log-out" class="logout-trigger" href="#"><i class="fa fa-power-off"></i></a> </div>
+    <div class="user-opt-drop">
+      <ul>
+        <li> <a class="nav-click home" id="active" rel="main" href=".../../main/templates/">Overview</a></li>
+      </ul>
+    </div>
+      <div class="left" >
+        <p class="top-title-main"></p>
+      </div>
+    </div>
+    <div class="main-content" style="padding: 0;">
+    <div class="halo-element-fail">
+        <div class="fail-image"><img src="../static/images/halo-element.png" /></div>
+        <div class="fail-title">No Halos at this level</div>
+      </div>
+      <div class="content-load-fail">
+        <div class="fail-image"><img src="../static/images/halo-fail.png" /></div>
+        <div class="fail-title">Halo's failed to load</div>
+        <div class="fail-sub"><a class="try-again" href="#">Try again</a></div>
+      </div>
+      <div class="main-content" id="other-container" style="padding-top: 50px;top: 0px;">
+      <div class="loader"><i class="fa fa-refresh fa-spin" style="font-size: 38px; color: #ced4d9;"></i></div>
+        <div class="append-halos"></div>
+        <div class="download-show"><div class="download-title">Downloading file...</div><div class="download-sub"></div>
+        <div class="download-button">
+        
+        
+  </div>
+        </div>
+      </div>
+    </div>
+     
+  </div>
+  <div class="copy-right"> <p>Copyright &#169 2014 Amplefi, LLC. All rights reserved</p></div>
+</div>
+<script >
+$(document).ready(function(){
+	$(document).on("click", "#side-nav > ul > li > a", function(e) {
+    var checkElement = $(this).next();
+    $('#side-nav li').removeClass('active');
+    $(this).closest('li').addClass('active');
+	$(".fa-angle-down").removeClass('fa-angle-down');
+	$(this).find('span').addClass('fa-angle-down');	
+        if((checkElement.is('ul')) && (checkElement.is(':visible'))) {
+      $(this).closest('li').removeClass('active');
+	  $(this).find('span').removeClass('fa-angle-down');
+      checkElement.slideUp('slow');
+    }
+    if((checkElement.is('ul')) && (!checkElement.is(':visible'))) {		 
+      $('#side-nav ul ul:visible').slideUp('slow');
+      checkElement.slideDown('slow');
+    }    
+    if (checkElement.is('ul')) {
+      return false;
+    } else {
+      return true;	
+    }		
+  });
+
+});
+</script>
+<div class="hover-clear">
+</div>
+</body>
+</html>
