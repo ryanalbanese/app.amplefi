@@ -51,9 +51,10 @@ display: none;
 	  display: none;
 	  opacity: .8;
       position: absolute;
-      width: 100px;
+      width: 200px;
+	  z-index: 100000;
 	  top: -10px;
-	  left: 3px;
+	  right: -200px;
       line-height: 20px;
       padding: 10px;
 	  font-weight: bold;
@@ -142,6 +143,10 @@ section {
 .download-button{
 
 	padding-top: 15px;
+}
+.halo-icon{
+	font-size: 45px;
+	color: #dee3e9;
 }
 .btn {
 	width:90%;
