@@ -287,10 +287,11 @@ $(document).ready(function(){
 		$(this).closest('div').append('<div class="tool-tip show-tip">'+tipVal+'</div>');
 		$(function() {
 		$('.ui-dform-div').hover(function(e) {
-          $(this).find('.tool-tip').fadeIn(100);
+			
+          $(this).find('.tool-tip').show();
           
         }, function() { 
-         $(this).find('.tool-tip').fadeOut(100);
+         $(this).find('.tool-tip').hide();
         });
 	});
 	}
