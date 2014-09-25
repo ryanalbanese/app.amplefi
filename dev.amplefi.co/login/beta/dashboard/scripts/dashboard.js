@@ -20,8 +20,10 @@ $(document).ready(function(){
 
 // LOGOUT FUNCTION
 $(document).on('click','.logout-trigger', function (event) {
-	$.removeCookie('session', { path: '/' });
-	window.location = 'https://app.amplefi.co/logout/'
+	$.removeCookie('session', { domain: '.amplefi.co', path: '/' });
+	$.removeCookie('mkid', { domain: '.amplefi.co', path: '/' });
+	$.removeCookie('cid', { domain: '.amplefi.co', path: '/' });
+	$.removeCookie('mode', { domain: '.amplefi.co', path: '/' });
 	return false;
 });
 // CHECK SESSION AND DISPLAY USER INFO
@@ -36,15 +38,15 @@ $(document).on('click','.logout-trigger', function (event) {
                 $(".append-items").append("<li><a data='" + item.mode + "' id='"+item.client_id+"' href='" + item.link + "'>" + item.title + "</a></li>");
 				if (n < 12 ) {
 				$(".append-user").empty().append('Good morning, '+data.first_name+'');
-				$(".user").css('background-image', 'url(images/blurred_1.jpg)').css('background-size',' cover;!important');
+				
 				}
 				else if ( n >= 12 && n <= 17){
 				$(".append-user").empty().append('Good afternoon, '+data.first_name+'');
-				$(".user").css('background-image', 'url(images/blurred_2.jpg)').css('background-size',' cover;!important');
+				
 				}
 				else if (n > 17 && n <= 24){
 				$(".append-user").empty().append('Good evening, '+data.first_name+'');
-				$(".user").css('background-image', 'url(images/blurred_5.jpg)').css('background-size',' cover;!important');
+				
 				}
                             $("a").click(function (event) {
                                 var server = $(this).attr('data');

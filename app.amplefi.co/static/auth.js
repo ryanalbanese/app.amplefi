@@ -57,7 +57,7 @@ $(".logout-trigger").click(function(){
 	$.removeCookie('mkid', { domain: '.amplefi.co', path: '/' });
 	$.removeCookie('cid', { domain: '.amplefi.co', path: '/' });
 	$.removeCookie('mode', { domain: '.amplefi.co', path: '/' });
-		 window.location = "https://dev.amplefi.co/login/beta/login/"
+		 window.location = "https://login.amplefi.co/login"
 		 event.preventDefault();
 	});
 });

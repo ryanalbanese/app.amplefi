@@ -27,7 +27,7 @@ html {
 }
 body {
 	
-	background: #fcfcfc;
+	background: #FFF;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: normal;
 	height: 100%;
@@ -233,8 +233,7 @@ input:focus {
 /* STYLES FOR DASHBOARD */
 .header {
 	height: 50px;
-	background: #383e49;
-	border-bottom: 1px solid #1e2227;
+	background: #3297db;
 }
 .logo {
 	display: inline-block;
@@ -257,26 +256,23 @@ input:focus {
 	padding-left: 20px;
 	padding-right: 20px;
 	height: 33px;
-	border-left: 1px solid #343538;
 	text-decoration: none;
 	font-weight: bold;
 	font-size: 11px;
-	color: #cfd2d9;
+	color: #FFF;
 }
 .logout a:hover {
-	background: #323336;
+	background: #2c84bf;
 	color: #FFF;
 }
 .logout a:active {
-	background: #262729;
+	background: #3297db;
 	color: #505e6f;
 }
 .user {
 	height: 211px;
-	background-image: url(images/blurred.jpg);
-	background-repeat: no-repeat;
-	background-size: cover;!important  
-	-moz-background-size: cover;
+	background: #333c4d; 
+	border-bottom: 1px solid #eaecf1;
 }
 .user-icon {
 	padding-top: 20px;
@@ -284,16 +280,16 @@ input:focus {
 .user-icon .circle {
 	width: 50px;
 	margin: 0 auto;
-	background-color: rgba(255, 255, 255, 0);
+	background-color: rgba(50, 151, 219, 0);
 	border: 4px solid #FFF;
 	height: 50px;
 	width: 50px;
 	-moz-border-radius: 75px;
-	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	
 	-webkit-border-radius: 75px;
 }
 .circle i {
-	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	
 	padding-left: 13px;
 	padding-top: 9px;
 	color: #FFF;
@@ -304,13 +300,13 @@ input:focus {
 	padding-top: 5px;
 	font-size: 30px;
 	color: #FFF;
-	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	
 }
 .content{
-	background: #fcfcfc;
+	background: #FFF;
 }
 .welcome-message {
-	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	
 	text-align: center;
 	padding-top: 5px;
 	font-size: 16px;
@@ -321,19 +317,19 @@ input:focus {
 	padding-top: 25px;
 }
 .nav ul li a {
-	text-shadow: 1px 1px 0px rgba(0, 0, 0, 1);
+	
 	font-weight: bold;
 	font-size: 12px;
-	color: #FFF;
+	color: #c8c8c8;
 	text-decoration: none;
 	padding: 10px;
-	border-bottom: 4px solid #31bdf2;
+	border-bottom: 4px solid #3297db;
 }
 .nav ul li a:hover {
 	color: #bdc4cc;
 }
 .chooser {
-	background: #fff;
+	background: #f9f9fb;
 	min-width: 350px;
 	max-width: 550px;
 	width: 65%;
