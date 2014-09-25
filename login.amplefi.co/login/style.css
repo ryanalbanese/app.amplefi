@@ -28,7 +28,6 @@ html {
 body {
 	display: none;
 	font-family: 'Open Sans', sans-serif;
-	font-weight: normal;
 	height: 100%;
 	width: 100%;
 	margin: 0;
@@ -60,7 +59,7 @@ body {
 	min-width: 100%;
 	min-height: 100%;
 	z-index: 2;
-	background-color: rgba(36,40,49,0.90);
+	background-color: rgba(36,40,49,0.60);
 }
 /* LOGIN CONTAINER */
 .small-mark {
@@ -84,7 +83,7 @@ body {
 	border-top-right-radius: 5px;
 	padding-top: 25px;
 	padding-bottom: 25px;
-	background: #323a46;
+	background: #333c4d;
 	border: 1px solid #2d343d;
 }
 .content {
@@ -109,14 +108,17 @@ body {
 	width: 130px;
 	display: inline-block;
 }
+.reset{
+	
+	
+}
 .sign-up{
-	width: 50%;
 	padding-left: 55px;
 	display: inline-block;
 	padding-top: 15px;
-	color: #87888a;
+	color: #abd9f8;
 	font-size: 12px;
-	font-weight: bold;
+	font-weight:bolder;
 	text-decoration: none;
 }
 .sign-up a{
@@ -141,6 +143,7 @@ body {
 }
 .reset-pass a:hover {
 	color: #cccccc;
+	text-decoration: underline;
 }
 /* FORM STYLING */
 form {
@@ -332,19 +335,22 @@ input {
 	background: #323a46;
 	border: 1px solid #2d343d;
 }
-.reset-pass, .reset-pass a {
+.reset-pass, .reset-pass a, .sign-up {
 	-webkit-transition: all 0.3s linear;
 	-moz-transition: all 0.3s linear;
 	-ms-transition: all 0.3s linear;
 	-o-transition: all 0.3s linear;
 	transition: all 0.3s linear;
 	text-align: center;
+	display: block;
+	width: 100%;
 	padding-top: 13px;
 	color: #FFF;
 	font-size: 11px;
 	font-weight: bold;
 	text-decoration: none;
 }
+
 .reset-pass a:hover {
 	color: #FFF;
 	background: #4798d6;
@@ -352,6 +358,7 @@ input {
 .reset {
 	border-top: 1px solid #16191f;
 	border-bottom: 1px solid #16191f;
+	margin-top: 10px;
 	margin-bottom: 20px;
 	display: block;
 	cursor: pointer;
