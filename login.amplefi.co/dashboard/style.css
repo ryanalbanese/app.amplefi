@@ -26,7 +26,7 @@ html {
 	font-smoothing: antialiased;
 }
 body {
-	visibility: hidden;
+	display: none;
 	background: #FFF;
 	font-family: 'Open Sans', sans-serif;
 	font-weight: normal;

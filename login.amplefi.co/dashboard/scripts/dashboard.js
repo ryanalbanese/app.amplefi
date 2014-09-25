@@ -34,7 +34,7 @@ $(document).on('click','.logout-trigger', function (event) {
             },
             function (data) {
                if (data.status == 'authorized') {	
-			   $("body").css('visibility', 'visible');
+			   $("body").fadeIn('fast');
 				$.each(data.package.array, function (i, item) {
                 $(".append-items").append("<li><a data='" + item.mode + "' id='"+item.client_id+"' href='" + item.link + "'>" + item.title + "</a></li>");
 				if (n < 12 ) {
